@@ -1,33 +1,32 @@
-class Property():
-    def __init__(self, income=0, yearly_expenses=0, cash_flow=None, name_of_property=None):
-        self.income = income
-        self.yearly_expenses = yearly_expenses
-        self.cash_flow = cash_flow
-        self.name_of_property = name_of_property
-        self.ROI = income * 12 - yearly_expenses  # monthly profit gain
+import unittest
+from main import Property, User, Run
 
-    def setIncome(self):
-        response = float(input('How much money do you make?'))
-        self.income = response
+class propertyManagerTesting(unittest.TestCase):
 
-        
+    def test_property_init(self):
+        myProperty = Property(1000, 4000, "Kyler's House")
+        self.assertEqual(myProperty.income, 1000)
+        self.assertEqual(myProperty.yearly_expenses, 4000)
+        self.assertEqual(myProperty.name_of_property, "Kyler's House")
+        self.assertEqual(myProperty.ROI, None)
 
-class User:
-    list_of_active_users = []
+    def test_user_init(self):
+        myUser = User("kylerramsey")
+        self.assertEqual(myUser.username, "kylerramsey")
 
-    def __init__(self, username, properties=[]):
-        self.username = username
-        self.list_of_active_users.append(self)
-        self.properties = properties
+    def test_add_property(self):
+        myUser = User("kylerramsey")
+        myProperty = Property(1000, 4000, "Kyler's House")
+        myUser.properties[myProperty.name_of_property] = myProperty
+        self.assertIn("Kyler's House", myUser.properties)
 
-    def addProperty(self):
-        userProperty = Property()
-        userProperty.setIncome()
-        self.properties.append(userProperty)
+    def test_add_user_in_dict(self):
+        myUser = User("lucaslang")
+        self.assertIn("lucaslang", myUser.dict_of_active_users)
 
-
-myUser = User('jendrix')
-myUser.addProperty()
-myUser.addProperty()
-print(myUser.properties)
-print(myUser.properties[0].income)
+    def test_run(self):
+        run = Run()
+        run.login()
+    
+if __name__ == '__main__':
+        unittest.main()

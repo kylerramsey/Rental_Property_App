@@ -77,20 +77,16 @@ class Run:
 
         while not done:
             main_menu = input("Welcome to your Rental Income Calculator. You've got a few options, listed below. \n\n"
-            " Add: Add new property \n Expenses: Change expenses to property \n Income: Change income (rent) on a property \n Remove: Remove a property \n View: View Properties \n Leave: Sign off \n Exit: Exit program \n\n What would you like to do?: ").lower()
+            " Add: Add new property \n Remove: Remove a property \n View: View Properties \n Leave: Sign off \n Exit: Exit program \n\n What would you like to do?: ").lower()
             if main_menu == "add":
                 self.current_user.addProperty()
                 print("\nProperty added.")
-            elif main_menu == "expenses":
-                pass
-                # change expenses on a property
             elif main_menu == "view":
                 self.current_user.displayPropertyInfo()
-            elif main_menu == "income":
-                pass
-                # change income on a property
             elif main_menu == "remove":
-                pass
+                remove_property = input("Which property would you like to remove?: \n")
+                del self.current_user.properties[remove_property]
+                print("Property Removed. Heading back to the main menu...\n")
                 # remove a rental property
             elif main_menu == "leave":
                 print("Logging out...\n")
@@ -103,5 +99,5 @@ class Run:
             else:
                 print("Invald input!")
 
-run = Run()
-run.login()
+# run = Run()
+# run.login()
